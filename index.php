@@ -111,7 +111,7 @@ $the_game = new CommonsMemory($theme,8);
     <script src="https://raw.github.com/coolaj86/knuth-shuffle/master/index.js"></script>
     <script type="text/javascript">
       $(document).ready(function() {
-        $('.nailthumb-container').nailthumb({width:125,height:125});
+        $('.nailthumb-container').nailthumb({width:125,height:125,animationTime:0});
       });
 
       $( "#toggleImageList" ).click(function(e) {
