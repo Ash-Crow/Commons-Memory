@@ -12,6 +12,7 @@ class CommonsMemory {
 	 * @var array
 	 */
 	public $themes_list = array(
+			  3943817	=>	"* All featured pictures *",
               13893548  =>  "Animals",
               13893806  =>  "↳ Birds",
               13894568  =>  "↳ Mammals",

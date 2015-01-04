@@ -9,7 +9,7 @@ if (isset($_REQUEST["theme"])) {
     $theme = $_REQUEST["theme"];
   }
 } else {
-  $theme = 13893548; // Default theme is animals.
+  $theme = 3943817; // Default theme is all FPs.
 }
 
 $the_game = new CommonsMemory($theme,8);
@@ -43,7 +43,7 @@ $the_game = new CommonsMemory($theme,8);
     <nav class="navbar navbar-fixed-top navbar-inverse">
       <div class="container">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#">Wikimedia Commons Memory game</a>
+          <a class="navbar-brand" href="index.php">Wikimedia Commons Memory game</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav navbar-right">
@@ -67,7 +67,13 @@ $the_game = new CommonsMemory($theme,8);
           </p>
           <div class="jumbotron">
             <h1>Wikimedia Commons Memory game</h1>
-            <p>Pick a theme on the right. The pictures are chosen amongst the Featured pictures of Wikimedia Commons.</p>
+            <p>Memory, also known as Concentration or simply Pairs, is a card game in which all of the cards
+              are laid face down on a surface and two cards are flipped face up over each turn. The object of
+              the game is to turn over pairs of matching cards.</p>
+            <p>In this particular version of the game, the pictures
+              are chosen amongst the Featured pictures of Wikimedia Commons, and you can pick a category from the menu.</p>
+            <p>You can also use any category that contains enough properly sized pictures by putting its page id in the URL,
+            like for example the “<a href="index.php?theme=24962964">Sleeping kitten</a>” category.</p>
           </div>
 
           <h2 id="victory" style="display: none">You won!</h2>
