@@ -108,7 +108,7 @@ $the_game = new CommonsMemory($theme,8);
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/nailthumb/jquery.nailthumb.1.1.js"></script>
-    <script src="https://raw.github.com/coolaj86/knuth-shuffle/master/index.js"></script>
+    <script type="text/javascript" src="js/knuth-shuffle.js"></script>
     <script type="text/javascript">
       $(document).ready(function() {
         $('.nailthumb-container').nailthumb({width:125,height:125,animationTime:0});
@@ -128,7 +128,8 @@ $the_game = new CommonsMemory($theme,8);
       window.knuthShuffle(cards_list);
 
       var shown_cards = 0;
-      var card1 = card2 = "";
+      var card1 = "";
+      var card2 = "";
 
       function checkCard(card_id){
         if ($("#pic"+ card_id).hasClass('hidden-card')) {
