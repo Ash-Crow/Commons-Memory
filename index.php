@@ -26,6 +26,11 @@ $the_game = new CommonsMemory($theme,8);
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
     <link href="js/nailthumb/jquery.nailthumb.1.1.css" type="text/css" rel="stylesheet" />
+    <style type="text/css">
+      .transparent {
+        opacity: 0;
+      }
+    </style>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -65,7 +70,7 @@ $the_game = new CommonsMemory($theme,8);
             <p>Pick a theme on the right. The pictures are chosen amongst the Featured pictures of Wikimedia Commons.</p>
           </div>
 
-
+          <h2 id="victory" style="display: none">You won!</h2>
           
             <?php $the_game->run(); 
             $the_game->imageList();
@@ -103,11 +108,64 @@ $the_game = new CommonsMemory($theme,8);
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/nailthumb/jquery.nailthumb.1.1.js"></script>
+    <script src="https://raw.github.com/coolaj86/knuth-shuffle/master/index.js"></script>
     <script type="text/javascript">
-      jQuery(document).ready(function() {
-        jQuery('.nailthumb-container').nailthumb({width:125,height:125});
+      $(document).ready(function() {
+        $('.nailthumb-container').nailthumb({width:125,height:125});
+      });
+
+      $( "#toggleImageList" ).click(function(e) {
+        $( "#imagelist" ).toggle();
+        e.preventDefault();
+      });
+
+      <?php $the_game->jsOutput(); ?>
+
+      var items_number = items.length;
+      var cards_number = items_number * 2;
+
+      var cards_list = items.concat(items);
+      window.knuthShuffle(cards_list);
+
+      var shown_cards = 0;
+      var card1 = card2 = "";
+
+      function checkCard(card_id){
+        if ($("#pic"+ card_id).hasClass('hidden-card')) {
+          if (shown_cards == 0) {
+            shown_cards++;
+            card1 = card_id;
+            $("#pic"+card1).attr('src', cards_list[card1]).nailthumb({width:125,height:125});
+          } else {
+            card2 = card_id;
+            $("#pic"+card2).attr('src', cards_list[card2]).nailthumb({width:125,height:125});
+            window.setTimeout(compareCards,800);
+            shown_cards = 0;
+          }
+        }
+      }
+
+      function compareCards(){
+        if (cards_list[card1] == cards_list[card2]) {
+          $("#pic"+card1).toggleClass("transparent hidden-card");
+          $("#pic"+card2).toggleClass("transparent hidden-card");
+
+          if ($('.hidden-card').length == 0) {
+            $('#the-board').toggle();
+            $('#victory').toggle();
+          }
+        } else {
+          $("#pic"+card1).attr('src', "img/back.png");
+          $("#pic"+card2).attr('src', "img/back.png");
+        }
+      }
+
+      $(".hidden-card").click(function(e){
+        var id = $(this).attr('id').substring(3);
+        checkCard(id);        
+
+        e.preventDefault();
       });
     </script>
-    <?php $the_game->jsOutput(); ?>
   </body>
 </html>

@@ -69,12 +69,12 @@ class CommonsMemory {
 	 *
 	 */
 	public function setBoard() {
-		echo '<div class="row">';
+		echo '<div id="the-board" class="row">';
 		for ($i=0; $i < $this->cards_number ; $i++) {
 			echo '
 			<div class="col-xs-6 col-md-3">
-				<a href="#" class="thumbnail nailthumb-container square-thumb" id="pic'.$i.'">
-					<img src="img/back.png" alt="Hidden image">
+				<a href="#" class="thumbnail nailthumb-container square-thumb" >
+					<img src="img/back.png" class="hidden-card" id="pic'.$i.'">
 				</a>
 			</div>';
         }
@@ -87,6 +87,8 @@ class CommonsMemory {
 	 */
 	public function imageList() {
 		echo '<h3>Images used in this game:</h3>';
+		echo '<a href="#" id="toggleImageList">[Show/Hide]</a>';
+		echo '<div id="imagelist" style="display: none">';
 		foreach ($this->items_array as $key => $value) {
 			echo '
 			<div class="media">
@@ -99,6 +101,7 @@ class CommonsMemory {
   				</div>
 			</div>';
           }
+        echo '</div>';
 	}
 
 	/**
@@ -191,9 +194,7 @@ class CommonsMemory {
 		$output_list = substr($output_list, 0, -3);
 		$output_list.="];";
 
-		echo '<script type="text/javascript">'."\n";
-		echo $output_list."\n";
-		echo '</script>'."\n";
+		echo $output_list."\n";		
 	}
 	
 }
