@@ -135,10 +135,10 @@ $the_game = new CommonsMemory($theme,8);
           if (shown_cards == 0) {
             shown_cards++;
             card1 = card_id;
-            $("#pic"+card1).attr('src', cards_list[card1]).nailthumb({width:125,height:125});
+            $("#pic"+card1).attr('src', cards_list[card1]).nailthumb({width:125,height:125,animationTime:400});
           } else {
             card2 = card_id;
-            $("#pic"+card2).attr('src', cards_list[card2]).nailthumb({width:125,height:125});
+            $("#pic"+card2).attr('src', cards_list[card2]).nailthumb({width:125,height:125,animationTime:400});
             window.setTimeout(compareCards,800);
             shown_cards = 0;
           }
