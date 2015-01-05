@@ -76,7 +76,10 @@ $the_game = new CommonsMemory($theme,8);
             like for example the “<a href="index.php?theme=24962964">Sleeping kitten</a>” category.</p>
           </div>
 
-          <h2 id="victory" style="display: none">You won!</h2>
+          <div id="victory" style="display: none">
+            <h2>You won!</h2>
+            <div id="gamestats"></div>
+          </div>
           
             <?php $the_game->run(); 
             $the_game->imageList();
@@ -127,6 +130,9 @@ $the_game = new CommonsMemory($theme,8);
 
       <?php $the_game->jsOutput(); ?>
 
+      var gametimer_start = 0;
+      var clickcounter = 0;
+
       var items_number = items.length;
       var cards_number = items_number * 2;
 
@@ -138,16 +144,23 @@ $the_game = new CommonsMemory($theme,8);
       var card2 = "";
 
       function checkCard(card_id){
+        clickcounter++;
+        if (gametimer_start == 0) {
+          gametimer_start = (new Date()).getTime();
+        }
+
         if ($("#pic"+ card_id).hasClass('hidden-card')) {
           if (shown_cards == 0) {
             shown_cards++;
             card1 = card_id;
             $("#pic"+card1).attr('src', cards_list[card1]).nailthumb({width:125,height:125,animationTime:400});
-          } else {
+          } else if (shown_cards == 1) {
             card2 = card_id;
             $("#pic"+card2).attr('src', cards_list[card2]).nailthumb({width:125,height:125,animationTime:400});
             window.setTimeout(compareCards,800);
             shown_cards = 0;
+          } else {
+            $('.hidden-card').attr('src', "img/back.png");
           }
         }
       }
@@ -158,12 +171,18 @@ $the_game = new CommonsMemory($theme,8);
           $("#pic"+card2).toggleClass("transparent hidden-card");
 
           if ($('.hidden-card').length == 0) {
+            var gametimer_stop = (new Date()).getTime();
+            var gametime = (gametimer_stop - gametimer_start)/1000;
+            $('#gamestats').html(
+              '<ul>' +
+              '<li>Total time = ' + Math.round(gametime) + 'seconds.</li>' +
+              '<li>Number of clicks = ' + clickcounter + '.</li>' +
+              '</ul>');
             $('#the-board').toggle();
             $('#victory').toggle();
           }
         } else {
-          $("#pic"+card1).attr('src', "img/back.png");
-          $("#pic"+card2).attr('src', "img/back.png");
+          $('.hidden-card').attr('src', "img/back.png");
         }
       }
 
